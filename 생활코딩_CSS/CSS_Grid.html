@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+      #grid{
+        border:5px solid pink;
+
+        /* 그리드를 사용 */
+        display:grid;
+        grid-template-columns: 150px 1fr;
+        /* 둘다 1fr로 하면 동적으로 화면 크기에따라 비율이 1:1조정이된다. */
+      }
+      div{
+        border:5px solid gray;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="grid">  <!-- 그리드를 사용하기 위해서는 부모가 필요하다. -->
+      <div>NAVIGATION</div>
+      <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</div>
+    </div>
+  </body>
+</html>
+
+
+<!--
+디자인을 위해 어떠한 기능이 없는 태그. div
+div는 기본적으로 줄바꿈이 있다.
+
+span은 div와 비슷하지만 줄바꿈이 없는 인라인이다.
+
+
+
+각 브라우저마다 사용하는지 여부를 알려주는 사이트
+https://caniuse.com/#search=grid
+
+  -->
