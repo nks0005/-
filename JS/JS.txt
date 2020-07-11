@@ -27,3 +27,175 @@ javascript key down event attribute
 
 
 자바스크립트 콘솔
+브라우저 관리자를 들어가서 Console을 사용한다.
+
+"".length = 문자의 갯수가 몇개인지를 알려준다.
+웹페이즈를 대상으로 실행이 가능하다.
+
+
+var 당첨자수 = 2;
+var 댓글선택자 = '._3b->9>div>.UFIComment.UFICommentActorName';
+
+function shuffle(a) {
+  for (let i = a.length; i; i--) {
+    let j=Math.floor(Math.random() * i);
+    [a[i-1], a[j]] = [a[j], a[i-1]];
+  }
+}
+
+var list= [];
+document.querySelectorAll(댓글선택자).forEach(function(e){
+  list.push(e.innerText);
+});
+list = list.filter((v,ia) => a.indexOf(v)===i);
+shuffle(list)
+console.log(list.slice(0, 당첨자수));
+
+
+
+자바 스크립트는 6개의 자료 타입이 있다.
+1. Boolean
+2. Null
+3. Undefined
+4. Number
+5. String
+6. Symbol(new in ECMAscript 6)
+
+그리고 오브젝트(객체)가 있다.
+
+
+
+
+숫자를 적을때는 숫자를 적으면된다.
+alert(1);
+alert(1+1);
+1+1 (2항 연산자)
+= > 콘솔 로그로 출력된다.
+
++는 산술 연산자이다.
++ - * / % 
+
+
+문자는 " ' 로 시작해서 " ' 로 끝난다.
+문자열은 유용한 기능들이 있다.
+.length
+이외에도 method가 있다.
+.toUpperCase() 와 같은..
+.indexOf('O') -1을 반환시 없는것이며, 만약 있다면 문자열의 위치를 알려준다.
+"Hello World".indexOf('o')의 값은 4이다.
+ 01234
+
+.trim()은 공백을 지운다.
+
+"          hello           ".trim()
+= hello
+
+
+
+변수라는 것은 '바뀔수 있는 어떤 값'을 말한다.
+x=1; 
+y=1;
+
+x+y;
+2
+
+x=1000;
+x+y
+1001
+
+
+콘솔에서 실행을 유보하고싶다면 쉬프트 엔터를 친다.
+
+
+변수를 만들때는 var 자료형을 사용하자.
+var = variable 
+
+
+
+
+querySelector
+
+의 대체제 : getElementById("id값")
+getElementByTagName("STYLE")
+
+
+id 추적 = #id값
+<body id="target">
+document.querySelector('#target')
+
+
+
+
+
+
+
+toggle 토글 구현
+<input type="button" value="black" onclick="
+      if(document.querySelector('body').dataset.mode === 'day')
+      {
+        document.querySelector('body').style.backgroundColor = 'black';
+        document.querySelector('body').style.color = 'white';
+        document.querySelector('body').dataset.mode = 'night';
+        this.value = 'day';
+      }
+      else
+      {
+        document.querySelector('body').style.backgroundColor='white';
+        document.querySelector('body').style.color = 'black';
+        document.querySelector('body').dataset.mode = 'day';
+        this.value = 'night';
+      }
+
+
+같은지 같지않는지 비교는 ===
+
+
+Boolean = true, false 값을 가진다.
+
+
+비교 할때는 <, > 
+html로 출력할때는 ^&lt;
+
+
+  <input id="night_day" type="button" value="night" onclick="
+      if(document.getElementById(id).value === 'night')
+      {
+        document.querySelector('body').style.backgroundColor = 'black';
+        document.querySelector('body').style.color = 'white'
+
+        document.querySelector('#night_day').value = 'day';
+      }
+      else
+      {
+        document.querySelector('body').style.backgroundColor = 'white';
+        document.querySelector('body').style.color = 'black';
+
+        document.querySelector('#night_day').value = 'night';
+      }
+    ">
+
+
+id값을 넣어서 querySelector('night_day').value로 값을 바꿀 수 있으며 
+element를 read하고자 할때는 getElementByid 함수를 사용한다.
+
+
+
+
+
+
+
+
+
+리펙토링 
+- 유지보수하기 쉽게. 중복하는 코드를 줄이고. 코드를 다시 개선하는 과정 
+
+
+
+
+
+
+
+
+
+
+

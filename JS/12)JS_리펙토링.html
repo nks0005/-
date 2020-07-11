@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <input type="button" value="night" onclick="
+      var body_tag = document.querySelector('body');
+
+      if(this.value === 'night')
+      {
+        body_tag.style.backgroundColor = 'black';
+        body_tag.style.color = 'white'
+
+        this.value = 'day';
+      }
+      else
+      {
+        body_tag.style.backgroundColor = 'white';
+        body_tag.style.color = 'black';
+
+        this.value = 'night';
+      }
+    ">
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script>
+      h1{
+        font-size = 10px;
+      }
+    </script>
+    <title></title>
+  </head>
+  <body id="target">
+    <h1>
+      HelloWorld
+    </h1>
+
+      <input type="button" value="night" onclick="
+      document.querySelector('body').style.backgroundColor = 'black';
+      document.querySelector('body').style.color = 'white';
+      ">
+      <input type="button" value="day" onclick="
+      document.querySelector('#target').style.backgroundColor = 'white';
+      document.querySelector('body').style.color = 'black';
+      ">
+
+      <input type="button" value="black" onclick="
+      if(document.querySelector('body').dataset.mode === 'day')
+      {
+        document.querySelector('body').style.backgroundColor = 'black';
+        document.querySelector('body').style.color = 'white';
+        document.querySelector('body').dataset.mode = 'night';
+        this.value = 'day';
+      }
+      else
+      {
+        document.querySelector('body').style.backgroundColor='white';
+        document.querySelector('body').style.color = 'black';
+        document.querySelector('body').dataset.mode = 'day';
+        this.value = 'night';
+      }
+      ">
+
+
+
+  </body>
+</html>
