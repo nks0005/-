@@ -1,0 +1,29 @@
+JS는 사용자와 상호작용하기 위해 사용하는 언어
+
+<input type="button" value="night" onclick="document.querySelector('body').style.backgroundColor='black';">
+
+
+document.write("")를 이용하면 페이지에 글을 작성할 수 있다.
+
+document.write와 일반적으로 사용하는것의 차이는 연산이 가능하다.
+
+
+이벤트
+<input type="button" value="hi" onclick="alert('h1')">
+<input type="text"  onchange="alert('changed')">
+<input type="text" onkeydown="alert('keydown!')">
+
+type을 버튼으로하면 버튼 모양이 된다.
+텍스트칸(post로전송)은 type값을 text로 하면 된다.
+
+onclick는 클릭했을때 
+onchange는 변경되었을때
+onkeydown은 키보드를 눌렀을때 반응한다.
+
+onclick이후에는 반드시 javascript가 와야한다.
+onchange onkeydown도 마찬가지다.
+
+javascript key down event attribute
+
+
+자바스크립트 콘솔
