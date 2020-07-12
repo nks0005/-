@@ -1,0 +1,16 @@
+﻿# 기본 데이터 형식
+1. 정수 계열 형식
+	byte = 부호 없는 정수 = 1byte 
+	sbyte = 부호 있는 정수 = 1byte
+	
+	short = 정수 = 2byte
+	ushort = 부호 없는 정수 = 2byte
+
+	int = 4byte
+	uint = 4byte
+
+	long = 8byte
+	ulong
+
+	char = 2byte = 유니코드 문자
+

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <h1>Function</h1>
+  <h2>Basic</h2>
+  <ul>
+    <script>
+      function two() {
+        document.write('<li>2-1</li>');
+        document.write('<li>2-2</li>');
+      }
+      document.write('<li>1</li>');
+      two();
+      document.write('<li>3</li>');
+      two();
+    </script>
+  </ul>
+  <h2>Parameter & Argument</h2>
+  <script>
+    function onePlusOne() {
+      document.write(1 + 1 + '<br>');
+    }
+    onePlusOne();
+
+    function sum(left, right) {
+      document.write(left + right + '<br>');
+    }
+
+    function sumColorRed(left, right) {
+      // 4:04초의 결과가 붉은색 5가 아닌 붉은색 23이 된 이유는 자바스크립트는 문자와 숫자를 더하면 숫자를 문자로 간주합니다. +를 덧셈이 아닌 문자 결합 연산자로 사용합니다. 그래서 2와 3이 결합되서 23이 된 것입니다. 아래와 같이  괄호를 사용해서 2와 3을 먼저 더해주셔야 합니다.
+      // document.write('<div style="color:red">'+(left+right)+'</div><br>');
+      document.write('<div style="color:red">' + left + right + '</div><br>');
+    }
+    sum(2, 3); // 5
+    sumColorRed(2, 3); // 5
+    sum(3, 4); // 7
+  </script>
+  <h2>Return</h2>
+  <script>
+    function sum2(left, right) {
+      return left + right;
+    }
+    document.write(sum2(2, 3) + '<br>');
+    document.write('<div style="color:red">' + sum2(2, 3) + '</div>');
+    document.write('<div style="font-size:3rem;">' + sum2(2, 3) + '</div>');
+  </script>
+
+</body>
+
+</html>

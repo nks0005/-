@@ -1,0 +1,7 @@
+C:\Users\root\Desktop\WEB_practice-master\C_Sharp_5.0\CSharp\CSharp\bin\Debug\CSharp.exe.config
+C:\Users\root\Desktop\WEB_practice-master\C_Sharp_5.0\CSharp\CSharp\bin\Debug\CSharp.exe
+C:\Users\root\Desktop\WEB_practice-master\C_Sharp_5.0\CSharp\CSharp\bin\Debug\CSharp.pdb
+C:\Users\root\Desktop\WEB_practice-master\C_Sharp_5.0\CSharp\CSharp\obj\Debug\CSharp.csprojAssemblyReference.cache
+C:\Users\root\Desktop\WEB_practice-master\C_Sharp_5.0\CSharp\CSharp\obj\Debug\CSharp.csproj.CoreCompileInputs.cache
+C:\Users\root\Desktop\WEB_practice-master\C_Sharp_5.0\CSharp\CSharp\obj\Debug\CSharp.exe
+C:\Users\root\Desktop\WEB_practice-master\C_Sharp_5.0\CSharp\CSharp\obj\Debug\CSharp.pdb
