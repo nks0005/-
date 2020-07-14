@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <script>
+    var Body = {
+      setColor: function(color) {
+        document.querySelector('body').style.color = color;
+      },
+      setBackgroundColor: function(color) {
+        document.querySelector('body').style.backgroundColor = color;
+      }
+    }
+
+    var Links = {
+      setColor: function(color) {
+        var aList = document.querySelectorAll('a');
+        for (var i = 0; i < aList.length; i++) {
+          aList[i].style.color = color;
+        }
+      }
+    }
+
+    function changeColor(self) {
+      if (self.value === 'day') {
+        Body.setColor('white');
+        Body.setBackgroundColor('black');
+        self.value = "night";
+
+        Links.setColor('powderblue');
+      } else {
+        Body.setColor('black');
+        Body.setBackgroundColor('white');
+        self.value = "day";
+
+        Links.setColor('blue');
+      }
+    }
+  </script>
+
+
+  <input type="button" value="day" onclick="changeColor(this);">
+  <a href="https://www.naver.com">네이버</a>
+
+</body>
+
+</html>
