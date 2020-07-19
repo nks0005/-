@@ -2,10 +2,20 @@ var http = require('http');
 var fs = require('fs');
 var url = require('url');
 
+var args = process.argv;
+console.log(args);
+console.log(args[2]);
+process.argv.forEach(function(val, index, array){
+  console.log(index + ': ' + val);
+  console.log(array);
+});
+
+
 var app = http.createServer(function(request,response){
     var _url = request.url;
     var queryData = url.parse(_url, true).query;
     var title = queryData.id;
+
     if(_url == '/'){
       title = 'Welcome';
     }
