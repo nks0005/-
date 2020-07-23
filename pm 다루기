@@ -1,0 +1,8 @@
+pm start *.js --watch
+코드가 변경될때마다 자동으로 reload 시켜준다.
+
+pm log
+로그들을 실시간으로 볼 수 있다.
+
+pm monit
+실시간으로 작동되는걸 볼 수 있다.

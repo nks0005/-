@@ -3,3 +3,29 @@ server side application이다.
 V8 엔진
 
 nodejs는 자바스크립트를 이용해서 컴퓨터자체를 제어
+
+
+
+보안
+
+오염된 정보가 들어온다 = FILTER
+
+오염된 정보가 출력된다.
+* XSS(Cross-site Scripting) : 악의적인 사용자가 공격하려는 사이트에 스크립트를 넣는 기법이다. 공격에 성공하면 사이트에 접속한 사용자는 삽입된 코드를 실행하게 되며, 보통 의도치 않는 행동을 수행하거나 쿠키나 세션 토큰 등의 민감한 정보를 탈취한다.
+  공격 방법에 따라 Stored XSS와 Reflected XSS로 나뉜다.
+  1. Stored XSS는 사이트 게시판이나 댓글, 닉네임 등 스크립트가 서버에 저장되어 실행되는 방식이다.
+
+  2. Reflected XSS는 URL 파라미터(특히 GET방식)에 스크립트를 넣어 서버에 저장하지 않고 그 즉시 스크립트를 만드는 방식이다.
+    - Reflected XSS는 브라우저에서 차단하는 경우가 많아 상대적으로 공격을 성공시키기 어렵다.
+
+
+
+npm sanitize html
+>npm install -S sanitize-html
+ -> 기본 설정은 모든 태그를 날려버린다.
+ 화이트 리스트로 설정
+ clean = sanitizeHtml(dirty, {
+   allowedTags : {'b', 'i', 'em', 'strong', 'a'],
+    allowedAttributes: { 'a':['href']},
+  allowedIframeHostnames : ['www.youtube.com']
+});
