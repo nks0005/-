@@ -17,13 +17,13 @@ nosql mongoDB는 Document Store
 		2. RDBMS가 데이터의 관계를 Foreign Key 등으로 정의하고 Join 등 관계형 연산을 하지만 NoSQL은 관계를 정의하지 않는다.
 		3. 대용량 데이터 저장을 한다.
 		4. 분산형 구조를 통해 여러 대의 서버에 분산하여 저장하고 상호 복제하여 데이터 유실이나 서비스 중지에 대비한다.
-		5. Schema-Less	
+		5. Schema-Less
 		6. 읽기 작업보다 쓰기 작업이 더 빠르며, 일반적으로 RDBMS에 비하여 쓰기와 읽기 성능이 빠르다.
 
 
 
 
-SQL의 장점 
+SQL의 장점
 	1. 명확하게 정의 된 스키마, 데이터 무결성 보장
 	2. 관계는 각 데이터를 중복없이 한번만 저장된다.
 NOSQL의 장점
@@ -38,3 +38,37 @@ NOSQL의 장점
 데이터 베이스란 중복을 줄이는 것이다..
 Every table in the database needs to have a single theme.
 모든 표는 하나의 주제만 가지고 있어야 한다.
+
+0000000000000000000000000000
+->
+
+https://sql-joins.leopard.in.ua/
+
+LEFT Join
+RIGHT Join
+
+INNER Join
+Full outer join
+
+
+
+Left Outer Join
+- 줄여서 LEFT Join
+
+A와 B
+. A에만 있는 정보를 기준으로 출력하는건 Left Outer Join이다.
+SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.id LEFT JOIN profile ON author.id = profile.pid;
+
+A 교집합 B
+INNER Join
+
+일반적으로 JOIN은 INNER Join이다.
+
+
+FULL OUTER JOIN는 합집합이며 LEFT JOIN + RIGHT JOIN 이다.
+
+full outer join을 지원하지 않는다면 아래처럼 하면된다.
+(LEFT JOIN) UNION DISTINCT (RIGHT JOIN)
+
+EXCLUSIVE LEFT JOIN -> 배제하는것.
+A - A교집합B
