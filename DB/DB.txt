@@ -72,3 +72,144 @@ full outer join을 지원하지 않는다면 아래처럼 하면된다.
 
 EXCLUSIVE LEFT JOIN -> 배제하는것.
 A - A교집합B
+
+
+
+
+
+
+
+
+
+
+
+Data Base Modeling
+Data Base Normalization
+
+
+* R DBMS
+mysql
+Oracle는
+sql Server
+postgreSQL
+db2
+access
+
+
+
+
+
+
+mysql
+
+SELECT * FROM topic WHERE author = 'egoing';
+
+SELECT * FROM topic WHERE author = 'egoing' ORDER BY id DESC;
+
+
+mysql -uroot -p
+
+
+# my sql 구조
+데이터베이스서버[데이터베이스(표+표) + 데이터베이스(표+표)]
+
+스키마란 데이터베이스의 구조와 제약조건에 관해 전반적인 명세를 기술한것
+
+
+데이터베이스는 자체적인 보안을 가지고 있다.
+권한 기능이 있다.
+
+
+./mysql -u[username] -p[패스워드]
+
+
+# (데이터베이스)스키마의 사용
+CREATE DATABASE opentutorials;
+
+DROP DATABASE opentutorials;
+
+SHOW DATABASES;
+
+USE opentutorials;
+
+SQL - Structured Query Language
+구조화된 질의 언어
+1. SQL 언어는 쉽다.
+2. 거의 대부분 RDBMS 서버를 다룰때 사용할정도로 중요하다.
+->가성비 갑
+
+
+table(x축과 y축)
+-수평 : 행(row, record) ->
+-수직 : 열(column) -> 데이터의 타입
+
+
+컬럼만들기(열만들기)
+-
+CREATE TABLE topic (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	title VARCHAR(100) NOT NULL,
+	description TEXT NULL,
+	created DATETIME NOT NULL,
+	author VARCHAR(15) NULL,
+	profile VARCHAR(200) NULL,
+	PRIMARY KEY(id)
+);
+
+
+
+CURD
+CREATE
+UPDATE
+READ
+DELETE
+
+SHOW TABLES;
+
+DESC topic;
+
+INSERT INTO topic (title, description, created) VALUES('MySQL', 'MySQL is...', NOW());
+
+테이블의 속성을 바꾸고자 할때.
+ALTER TABLE topic MODIFY created DATETIME NULL;
+
+created의 속성의 NOT NULL을 NULL로 바꿈
+
+mysql> SELECT * FROM topic;
++----+-------+--------------+---------------------+--------+---------+
+| id | title | description  | created             | author | profile |
++----+-------+--------------+---------------------+--------+---------+
+|  1 | MySQL | MySql is ... | NULL                | NULL   | NULL    |
+|  2 | MySQL | MySql is ... | 2020-07-26 20:08:55 | NULL   | NULL    |
++----+-------+--------------+---------------------+--------+---------+
+2 rows in set (0.00 sec)
+
+mysql> DELETE FROM topic WHERE id=1;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM topic;
++----+-------+--------------+---------------------+--------+---------+
+| id | title | description  | created             | author | profile |
++----+-------+--------------+---------------------+--------+---------+
+|  2 | MySQL | MySql is ... | 2020-07-26 20:08:55 | NULL   | NULL    |
++----+-------+--------------+---------------------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE topic SET id=1 WHERE id=2;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM topic;
++----+-------+--------------+---------------------+--------+---------+
+| id | title | description  | created             | author | profile |
++----+-------+--------------+---------------------+--------+---------+
+|  1 | MySQL | MySql is ... | 2020-07-26 20:08:55 | NULL   | NULL    |
++----+-------+--------------+---------------------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql>
+
+
+
+READ하는 방법
+SELECT
