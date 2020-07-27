@@ -213,3 +213,31 @@ mysql>
 
 READ하는 방법
 SELECT
+
+
+
+SELECT FROM WHERE author = 'egoing';
+WHERE을 통해 필요한 정보들을 가져올 수 있다.
+
+ORDER BY는 기준이다. 
+ORDER BY id DESC;
+
+SELECT * FROM topic WHERE author = 'egoing' ORDER BY id DESC;
+
+
+데이터를 제약을 건다. 2건 본다.
+
+LIMIT 2;
+
+
+SELECT * FROM topic WHERE author = 'egoing' ORDER BY id DESC LIMIT 2;
+
+
+
+
+UPDATE topic SET description='Oracle is ...', title='Oracle' WHERE id = 2;
+- WHERE 을 안적으면 대참사가 발생한다.
+
+
+
+
