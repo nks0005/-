@@ -378,3 +378,14 @@ mysql> SELECT topic.id, topic.title, topic.description, topic.created, author.na
 
 기본적으로 콘솔은 mysql는 monitor이며
 mysql workbench.
+
+
+성능 문제가 발생시, index를 이용하자(색인)
+
+데이터가 너무 많아진다면, modeling을 이용하자. -> 데이터를 효율적으로 중복없이.
+
+backup -> 데이터를 복제해서 저장한다. -> mysqldump, binary log
+
+cloud -> 임대해서 컴퓨터를 사용. 원격 제어를 해서 다룬다. -> 최고 엔지니어가 관리해준다. AWS RDS, GOOGLE CLOUD SQL FOR MYSQL, AZURE...
+
+프로그래밍 -> Python mysql api, PHP mysql api, Java mysql api ...
