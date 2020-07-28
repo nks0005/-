@@ -219,7 +219,7 @@ SELECT
 SELECT FROM WHERE author = 'egoing';
 WHERE을 통해 필요한 정보들을 가져올 수 있다.
 
-ORDER BY는 기준이다. 
+ORDER BY는 기준이다.
 ORDER BY id DESC;
 
 SELECT * FROM topic WHERE author = 'egoing' ORDER BY id DESC;
@@ -240,4 +240,141 @@ UPDATE topic SET description='Oracle is ...', title='Oracle' WHERE id = 2;
 
 
 
+DELETE FROM topic WHERE id =2;
+- WHERE을 안적으면 대참사가 발생한다.
 
+
+
+
+
+관계형 데이터베이스의 필요한가?
+1. 데이터가 중복된다. -> 이를 해결
+2. 중복이 없기에 높은 퍼포먼스와 쉬운 유지보수,
+3. 그러나 직관적이지 않다.
+
+--> 저장은 따로따로, 볼땐 합쳐서(Select)
+
+
+
+
+
+
+
+topic
+id, title, description, created, author_id
+
+author
+id, name, profile
+
+
+
+
+
+
+
+
+
+CREATE TABLE topic (
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	title VARCHAR(100) NOT NULL,
+	description TEXT NULL,
+	created DATETIME NOT NULL,
+	author_id INT(11) NULL,
+	PRIMARY KEY(id)
+);
+
+
+CREATE TABLE author(
+	id INT(11) NOT NULL AUTO_INCREMENT,
+	name VARCHAR(100) NOT NULL,
+	profile VARCHAR(100) NOT NULL,
+	PRIMARY KEY(id)
+);
+
+
+
+
+RDBMS의 KEY
+- KEY는 각각의 튜플의 특성이 아니라 전체 릴레이션의 특성이다. 릴레이션의 어떠한 튜플도 동시에 키 속성에 대해 같은 값을 가질 수 없다. 키 설정은 모델링되는 실제 데이터의 제약 조건을 나타낸다. Key의 종류는 아래와 같다.
+1. Super Key(슈퍼키)
+	- 한 릴레이션에서 한 튜플을 유일하게 식별할 수 있도록 해주는 하나 혹은 그 이상의 속성들의 집합으로서, 꼭 필요하지 않는 부가적인 속성을 포함함 수 있다.
+2. Candidate Key(후보키)
+	- 최소한의 슈퍼키를 말한다.
+3. Primary Key(주키)
+	- 릴레이션 내에서 튜플들을 구별하기 위한 수단으로 데이터베이스 설계자에 의해 선택된 후보키를 말한다. Primary Key의 경우 선택할 때 절대 빠귀지 않거나 거의 바뀌지 않을 속성을 선택해서 설정해야한다.
+4. Foreign Key(외래키)
+
+
+
+
+
+SELECT * FROM topic LEFT JOIN author ON topic.authod_id = authod.id;
+> LEFT JOIN을 사용하면 된다.
+
+
+RENAME TABLE topic TO topic_backup;
+SHOW TABLES;
+
+
+
+
+CREATE TABLE `author`(
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`name` varchar(20) NOT NULL,
+	`profile` varchar(200) DEFAULT NULL,
+	PRIMARY KEY (`id`)
+);
+
+INSERT INTO `author` VALUES (1, 'egoing', 'developer');
+INSERT INTO `author` VALUES (2, 'duru', 'database administrator');
+INSERT INTO `author` VALUES (3, 'taeho', 'data scientist, developer');
+
+CREATE TABLE `topic` (
+	`id` int(11) NOT NULL AUTO_INCREMENT,
+	`title` varchar(30) NOT NULL,
+	`description` text,
+	`created` datetime NOT NULL,
+	`author_id` int(11) DEFAULT NULL,
+	PRIMARY KEY (`id`)
+);
+
+INSERT INTO `topic` VALUES (1,'MySQL','MySQL is...','2018-01-01 12:10:11',1);
+INSERT INTO `topic` VALUES (2,'Oracle','Oracle is ...','2018-01-03 13:01:10',1);
+INSERT INTO `topic` VALUES (3,'SQL Server','SQL Server is ...','2018-01-20 11:01:10',2);
+INSERT INTO `topic` VALUES (4,'PostgreSQL','PostgreSQL is ...','2018-01-23 01:03:03',3);
+INSERT INTO `topic` VALUES (5,'MongoDB','MongoDB is ...','2018-01-30 12:31:03',1);
+
+
+
+mysql> SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.id;
++----+------------+-------------------+---------------------+-----------+------+--------+---------------------------+
+| id | title      | description       | created             | author_id | id   | name   | profile                   |
++----+------------+-------------------+---------------------+-----------+------+--------+---------------------------+
+|  1 | MySQL      | MySQL is...       | 2018-01-01 12:10:11 |         1 |    1 | egoing | developer                 |
+|  2 | Oracle     | Oracle is ...     | 2018-01-03 13:01:10 |         1 |    1 | egoing | developer                 |
+|  3 | SQL Server | SQL Server is ... | 2018-01-20 11:01:10 |         2 |    2 | duru   | database administrator    |
+|  4 | PostgreSQL | PostgreSQL is ... | 2018-01-23 01:03:03 |         3 |    3 | taeho  | data scientist, developer |
+|  5 | MongoDB    | MongoDB is ...    | 2018-01-30 12:31:03 |         1 |    1 | egoing | developer                 |
++----+------------+-------------------+---------------------+-----------+------+--------+---------------------------+
+5 rows in set (0.00 sec)
+
+
+mysql> SELECT topic.id, topic.title, topic.description, topic.created, author.name, author.profile FROM topic LEFT JOIN author ON topic.author_id = author.id;
++----+------------+-------------------+---------------------+--------+---------------------------+
+| id | title      | description       | created             | name   | profile                   |
++----+------------+-------------------+---------------------+--------+---------------------------+
+|  1 | MySQL      | MySQL is...       | 2018-01-01 12:10:11 | egoing | developer                 |
+|  2 | Oracle     | Oracle is ...     | 2018-01-03 13:01:10 | egoing | developer                 |
+|  3 | SQL Server | SQL Server is ... | 2018-01-20 11:01:10 | duru   | database administrator    |
+|  4 | PostgreSQL | PostgreSQL is ... | 2018-01-23 01:03:03 | taeho  | data scientist, developer |
+|  5 | MongoDB    | MongoDB is ...    | 2018-01-30 12:31:03 | egoing | developer                 |
++----+------------+-------------------+---------------------+--------+---------------------------+
+5 rows in set (0.00 sec)
+
+
+
+
+
+
+기본적으로 콘솔은 mysql는 monitor이며
+mysql workbench.
