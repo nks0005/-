@@ -71,3 +71,101 @@ UI <-> Database
 [댓글] : 이름, 댓글
 
 Drawio web.
+
+
+
+
+
+
+
+
+
+user_id, email, national_id, name, city
+1, a@mail.com, 10001, egoing, seoul
+2, b@mail.com, 10002, leezche, jeju
+3. c@mail.com, 10003, egoing, jeju
+
+(1). 후보키(candidate key)
+user_id, email, national_id
+(2). 기본키(primary key)
+user_id
+(3). 대체키(alternate key) -> secondary index로 성능 향상에 기여할 수 있다.
+email, national_id
+
+
+
+
+
+
+emp_no(직원번호), dept_no(부서번호), from_date(부서배정일)
+1, 1, 2010
+2, 1, 2011
+1, 2, 2013
+
+-> emp_no, dept_no 두 개 키를 이용하여 구분한다.(중복키)
+
+
+
+
+
+
+
+
+
+프라이머리 키를 가리키는 속성은 외래키라고 한다.
+
+(글) 저자 아이디 -> (저자) 아이디
+
+
+
+
+
+
+* Cardinality -> 1:1 1:n n:m
+담임(Kim, Lee, Park)
+반(1반, 2반, 3반)
+=> 양쪽 다 따져봐야한다.
+=> 각 선생님은 한 반만 담임한다.
+kim - 1반
+=> 각 반의 담임은 한명이다.
+1반 - Kim
+=> 1:1관계
+ERD에서는 ㅁ-ㅁ 으로 표현한다.
+
+
+
+
+
+
+저자(Kim, Lee, Park)
+댓글(댓글1, 댓글2, 댓글3)
+=> 각 저자는 여러 글을 작성한다.
+Kim - 댓글1, 댓글2, 댓글3
+=> 각 댓글은 하나의 저자만 존재한다.
+댓글1 - Kim, 댓글2 - Kim, 댓글3 - kim
+=> 1:N 관계
+Entity Relactionship Diagram 에서는 ㅁ-<-ㅁ로 표현한다.
+
+
+저자(Kim, Lee, Park)
+글(글1, 글2, 글3)
+=> 각 저자는 여러 글을 작성한다
+=> 각 글은 여러 저자가 존재한다
+=> N:M 관계
+ㅁ->--<-ㅁ 이렇게 두지 않고 최종적으로 연결 테이블을 만든다.
+
+
+
+
+* Optionality -> 있을 수도 있고 없을 수도 있다.
+저자(Kim, Lee, Park)
+댓글(댓글1, 댓글2, 댓글3)
+=> 저자는 댓글을 작성하지 않을 수도 있다.
+===> 저자에게 댓글은 Optional이다.
+ㅁ---o-ㅁ
+o의 방향이 중요하다.
+=> 각 댓글은 반드시 저자가 있다.댓글에게 저자는 Mandatory이다.
+ㅁ+--o-ㅁ
+
+=> 저자 댓글은 1:N이다.
+ㅁ+--o<-ㅁ
