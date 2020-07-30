@@ -209,4 +209,14 @@ http://bit.ly/2wV2SFj
 제 1정규화
 Atomic columns.
 -> 각 행의 값들이 하나하나가 원자적이여야 한다.
-즉, 여러 값들. Tag의 값을 분활시킨다.
+즉, 여러 값들을 가진 Tag의 값을 분활시킨다.
+
+
+제 2정규화
+No partial dependencies.
+-> 테이블 상에 부분 종속성이 없어야 한다.
+-> 중복 키가 없어야 한다.
+
+제 3정규화
+No transitive dependencies.
+이행적 종속성은 분리해야한다.
