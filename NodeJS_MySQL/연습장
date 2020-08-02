@@ -1,0 +1,17 @@
+# MySQL
+  $ use DATABASE;
+  > 사용할 데이터베이스를 선택한다.
+  $ show TABLES;
+  > 선택된 데이터베이스의 테이블의 이름을 보여준다.
+  $ select * from TABLE;
+  > 테이블의 표를 불러온다.
+
+
+# Node JS
+  $ npm install
+  > package.json의 의존된 파일들을 다운받고 적용한다.
+
+  $ node main.js
+  
+  $ pm2 start main.js --watch
+  $ pm2 log
