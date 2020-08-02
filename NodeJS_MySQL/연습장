@@ -7,11 +7,30 @@
   > 테이블의 표를 불러온다.
 
 
+  # MySQL 계정 비밀번호 변경 (mysql 8.x ^)
+    $ use mysql;
+    $ select host, user, authentication_string from user;
+    $ alter user 'root'@'localhost' identified with mysql_native_password by '1234';
+    $ flush privileges;
+    $ quit;
+
+
 # Node JS
   $ npm install
   > package.json의 의존된 파일들을 다운받고 적용한다.
 
   $ node main.js
-  
+
   $ pm2 start main.js --watch
   $ pm2 log
+
+  $ npm install -S mysql
+  $ npm install --save mysql
+  > NODE JS에 MySQL 모듈 설치
+  > https://github.com/mysqljs/mysql
+
+
+# visual studio code
+ $ Ctrl + A 
+ $ Ctrl + K and F
+ > 코드를 정렬한다.
