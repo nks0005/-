@@ -30,6 +30,10 @@
   > https://github.com/mysqljs/mysql
 
 
+  $ db.query(`SELECT * FROM topic WHERE id=?`, [queryData.id], function(error2, topic){
+    ?와 그 뒤의 인자를 배열로 넣어주면 알아서 세탁해준다.
+
+
 # visual studio code
  $ Ctrl + A 
  $ Ctrl + K and F
