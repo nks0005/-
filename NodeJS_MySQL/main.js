@@ -46,7 +46,6 @@ var app = http.createServer(function (request, response) {
           if (error2) {
             throw error2;
           }
-          console.log(topic);
 
           var title = topic[0].title;
           var description = topic[0].description;
@@ -72,24 +71,38 @@ var app = http.createServer(function (request, response) {
 
     }
   } else if (pathname === '/create') {
-    db.query(`SELECT * FROM topic`, function (error, topics) {
-      var title = 'Create';
-      var list = template.list(topics);
-      var html = template.HTML(title, list,
-        `<form action="/create_process" method="post">
+    db.query(`SELECT * FROM topic`, function (error1, topics) {
+      if(error1) throw error1;
+      db.query(`SELECT * FROM author`, function (error2, authors) {
+        if(error2) throw error2;
+        console.log(authors);
+
+        var tag =``;
+        for(var i=0; i<authors.length;i++){
+          tag += `<option value="${authors[i].id}">${authors[i].name}</option>`;
+        }
+
+        var title = 'Create';
+        var list = template.list(topics);
+        var html = template.HTML(title, list,
+          `<form action="/create_process" method="post">
         <p><input type="text" name="title" placeholder="title"></p>
         <p>
           <textarea name="description" placeholder="description"></textarea>
+        </p>
+        <p>
+          ${template.authorSelect(authors)}
         </p>
         <p>
           <input type="submit">
         </p>
       </form>
       `,
-        `<a herf="/create">create</a>`);
+          `<a herf="/create">create</a>`);
 
-      response.writeHead(200);
-      response.end(html);
+        response.writeHead(200);
+        response.end(html);
+      });
     });
 
 
@@ -104,7 +117,7 @@ var app = http.createServer(function (request, response) {
       var title = post.title;
       var description = post.description;
 
-      db.query(`INSERT INTO topic (title, description, created, author_id) VALUES (?, ?, NOW(), ?)`, [post.title, post.description, 1], function (error, result) {
+      db.query(`INSERT INTO topic (title, description, created, author_id) VALUES (?, ?, NOW(), ?)`, [post.title, post.description, post.author], function (error, result) {
         if (error) {
           throw error;
         }
@@ -147,8 +160,8 @@ var app = http.createServer(function (request, response) {
     request.on('end', function () {
       var post = qs.parse(body);
       db.query(`UPDATE topic SET title=?, description=?, author_id=1 WHERE id=?`, [post.title, post.description, post.id], function (error, result) {
-        if(error) throw error;
-        
+        if (error) throw error;
+
         response.writeHead(302, { Location: `/?id=${post.id}` });
         response.end();
       });
@@ -163,10 +176,10 @@ var app = http.createServer(function (request, response) {
       var post = qs.parse(body);
       var id = post.id;
       var filteredId = path.parse(id).base;
-      db.query(`DELETE FROM topic WHERE id = ?`,[post.id],function(error, result){
-        if(error) throw error;
-        
-        response.writeHead(302, {Location:`/`});
+      db.query(`DELETE FROM topic WHERE id = ?`, [post.id], function (error, result) {
+        if (error) throw error;
+
+        response.writeHead(302, { Location: `/` });
         response.end();
       });
 
