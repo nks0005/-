@@ -2,6 +2,7 @@ var db = require('./db');
 var template = require('./template');
 var url = require('url');
 var qs = require('querystring');
+var path = require('path');
 
 exports.home = function (request, response) {
     db.query(`SELECT * FROM topic`, function (error, topics) {
@@ -27,7 +28,7 @@ exports.home = function (request, response) {
                 <textarea name="profile" placeholder="desciption"></textarea>
             </p>
             <p>
-                <input type="submit">
+                <input type="submit" value="update">
             </p>
             </form>
             `,
@@ -64,16 +65,19 @@ exports.create_process = function (request, response) {
 }
 
 
-exports.update = function(request, response){
-    db.query(`SELECT * FROM topic`, function (error, topics) {
+exports.update = function (request, response) {
+    db.query(`SELECT * FROM topic`, function (error1, topics) {
+        if (error1) throw error1;
         db.query(`SELECT * FROM author`, function (error2, authors) {
+            if (error2) throw error2;
             var _url = request.url;
             var queryData = url.parse(_url, true).query;
-
-            var title = 'author';
-            var list = template.list(topics);
-            var html = template.HTML(title, list,
-                `
+            db.query(`SELECT * FROM author WHERE id=?`, [queryData.id], function (error3, author) {
+                if (error3) throw error3;
+                var title = 'author';
+                var list = template.list(topics);
+                var html = template.HTML(title, list,
+                    `
             ${template.authorTable(authors)}
             <style>
                 table{
@@ -88,23 +92,68 @@ exports.update = function(request, response){
                     <input type="hidden" name="id" value="${queryData.id}">
                 </p>
             <p>
-                <input type="text" name="name" placeholder="name">
+                <input type="text" name="name" value="${author[0].name}" placeholder="name">
             </p>
             <p>
-                <textarea name="profile" placeholder="desciption"></textarea>
+                <textarea name="profile" placeholder="profile">${author[0].profile}</textarea>
             </p>
             <p>
                 <input type="submit">
             </p>
             </form>
             `,
-            `
+                    `
            
             `
-            );
+                );
 
-            response.writeHead(200);
-            response.end(html);
+
+                console.log(author[0].profile);
+
+                response.writeHead(200);
+                response.end(html);
+            });
+        });
+    });
+}
+
+exports.update_process = function (request, response) {
+    var body = '';
+    request.on('data', function (data) {
+        body = body + data;
+    });
+
+    request.on('end', function () {
+        var post = qs.parse(body);
+
+        db.query(`UPDATE author SET name=?, profile=? WHERE id=?`, [post.name, post.profile, post.id], function (error, result) {
+            if (error) throw error;
+            console.log(result);
+
+            response.writeHead(302, { Location: `/author` });
+            response.end();
+        });
+    });
+}
+
+exports.delete_process = function (request, response) {
+    var body = '';
+
+    request.on('data', function (data) {
+        body = body + data;
+    });
+    request.on('end', function () {
+        var post = qs.parse(body);
+        var id = post.id;
+        var filteredId = path.parse(id).base;
+        db.query(`DELETE FROM topic WHERE author_id=?`, [post.id], function (error1, result) {
+            if (error1) throw error1;
+            db.query(`DELETE FROM author WHERE id=?`, [post.id], function (error2, result) {
+                if (error2) throw error2;
+
+                response.writeHead(302, { Location: `/author` });
+                response.end();
+            });
         });
     });
 }

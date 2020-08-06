@@ -51,7 +51,12 @@ module.exports = {
             <td>${authors[i].name}</td>
             <td>${authors[i].profile}</td>
             <td><a href="/author/update?id=${authors[i].id}">update</td>
-            <td>delete</td>
+            <td>
+              <form action="/author/delete_process" method="post">
+                <input type="hidden" name="id" value="${authors[i].id}">
+                <input type="submit" value="delete">
+              </form>
+            </td>
         </tr>
         `;
     }
