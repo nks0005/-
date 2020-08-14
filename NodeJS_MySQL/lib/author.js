@@ -146,7 +146,7 @@ exports.delete_process = function (request, response) {
         var post = qs.parse(body);
         var id = post.id;
         var filteredId = path.parse(id).base;
-        db.query(`DELETE FROM topic WHERE author_id=?`, [post.id], function (error1, result) {
+        var query = db.query(`DELETE FROM topic WHERE author_id=?`, [post.id], function (error1, result) {
             if (error1) throw error1;
             db.query(`DELETE FROM author WHERE id=?`, [post.id], function (error2, result) {
                 if (error2) throw error2;
@@ -155,5 +155,6 @@ exports.delete_process = function (request, response) {
                 response.end();
             });
         });
+        console.log(query.sql);
     });
 }
