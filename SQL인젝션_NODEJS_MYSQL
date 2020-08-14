@@ -175,5 +175,14 @@
         테이블명 얻어오기
         select * from topic UNION SELECT table_name,1,1,1,1 FROM information_schema.columns; 
 
-        
 
+
+2. Blind SQL 인젝션
+    일반적인 SQL 인젝선(No Blind)은 쿼리 조건을 무력화하여 인증을 우회하거나, 출력된 에러 내용에 기반하여 DB의 스키마 정보를 획득한 후, 쿼리 결과에 정보를 붙여서(UNION) 데이터를 유출하거나 시스템 명령어를 삽입하는 형태로 공격이 진행되었다.
+
+    만약 대상 웹페이지가 어떠한 오류도 출력하지 않고 쿼리 결과 리스트도 제공하지 않는다면 이때 사용하는 기법이 Blind SQL 인젝션이다.
+
+    => Blind SQL 인제션은 쿼리의 결과의 참/거짓으로부터 DB 값을 유출해 내는 기법이다.
+        예시로 ID찾기나 게시판검색의 기능에서 참/거짓을 판별하는 요소를 찾을 수 있다.
+
+https://m.mkexdev.net/427
