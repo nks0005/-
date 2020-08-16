@@ -1,0 +1,18 @@
+npm install -s Cookie
+웹 브라우저를 끄면 사라지는 휘발성 쿠키 = Session cookie
+웹 브라우저를 꺼도 안사라지는 비휘발성 쿠키 = Permanent cookie
+
+
+--> Max-age, Expire
+Max-age는 상대적인 값으로 날짜를 정한다.
+Expire는 절대적인 날짜를 정한다.
+
+# 쿠키 옵션 - Secure & HttpOnly (보안)
+Secure cookie는 웹 브라우저와 웹 서버가 https로 통신하는 경우만 웹 브라우저가 쿠키를 서버로 전송하는 옵션이다.
+Httponly는 자바스크립트의 document.cookie를 이용해서 쿠키에 접속하는 것을 막는 옵션이다. -->쿠키를 훔쳐가는 행위를 막기 위한 방법입니다.
+Cookie는 document.cookie로 Java script를 통해 얻어올 수 있으나, HttpOnly 옵션이 있는 쿠키의 값은 읽어올 수 가 없습니다.
+
+
+# 쿠키 옵션 - path & domain
+path는 특정 경로에서 해당 쿠키가 활성화되어지게 만듬.
+domain은 해당 domain 주소를 가진 곳에서 해당 쿠기가 활성화되어지게 만듬.
