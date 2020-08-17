@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 const template = require('./lib/template.js');
+const path = require('path');
+const sanitizeHtml = require('sanitize-html');
 
 app.get('/', function (request, response) {
   fs.readdir('./data', function(error, filelist){
@@ -16,9 +18,32 @@ app.get('/', function (request, response) {
   });
 });
 
-app.get('/page/:select', function(req, res){
+app.get('/page/:pageId', function(request, response){
   console.log('page hello');
-  return res.send(`${req.params.select}`);
+
+  fs.readdir('./data', function(error, filelist){
+    var filteredId = path.parse(request.params.pageId).base;
+    fs.readFile(`data/${filteredId}`, 'utf8', function(err, description){
+      var title = filteredId;
+      var sanitizedTitle = sanitizeHtml(title);
+      var sanitizedDescription = sanitizeHtml(description, {
+        allowedTags:['h1']
+      });
+      var list = template.list(filelist);
+      var html = template.HTML(sanitizedTitle, list,
+        `<h2>${sanitizedTitle}</h2>${sanitizedDescription}`,
+        ` <a href="/create">create</a>
+          <a href="/update?id=${sanitizedTitle}">update</a>
+          <form action="delete_process" method="post">
+            <input type="hidden" name="id" value="${sanitizedTitle}">
+            <input type="submit" value="delete">
+          </form>`
+      );
+     
+      response.send(html);
+      // return res.send(`${req.params.pageId}`);
+    });
+  });
 })
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
@@ -41,40 +66,8 @@ var app = http.createServer(function(request,response){
     var pathname = url.parse(_url, true).pathname;
     if(pathname === '/'){
       if(queryData.id === undefined){
-        fs.readdir('./data', function(error, filelist){
-          var title = 'Welcome';
-          var description = 'Hello, Node.js';
-          var list = template.list(filelist);
-          var html = template.HTML(title, list,
-            `<h2>${title}</h2>${description}`,
-            `<a href="/create">create</a>`
-          );
-          response.writeHead(200);
-          response.end(html);
-        });
       } else {
-        fs.readdir('./data', function(error, filelist){
-          var filteredId = path.parse(queryData.id).base;
-          fs.readFile(`data/${filteredId}`, 'utf8', function(err, description){
-            var title = queryData.id;
-            var sanitizedTitle = sanitizeHtml(title);
-            var sanitizedDescription = sanitizeHtml(description, {
-              allowedTags:['h1']
-            });
-            var list = template.list(filelist);
-            var html = template.HTML(sanitizedTitle, list,
-              `<h2>${sanitizedTitle}</h2>${sanitizedDescription}`,
-              ` <a href="/create">create</a>
-                <a href="/update?id=${sanitizedTitle}">update</a>
-                <form action="delete_process" method="post">
-                  <input type="hidden" name="id" value="${sanitizedTitle}">
-                  <input type="submit" value="delete">
-                </form>`
-            );
-            response.writeHead(200);
-            response.end(html);
-          });
-        });
+       
       }
     } else if(pathname === '/create'){
       fs.readdir('./data', function(error, filelist){
