@@ -47,7 +47,6 @@ app.get('/page/:pageId', function(request, response){
   });
 })
 
-
 app.get('/create', function(request, response){
   fs.readdir('./data', function(error, filelist){
     var title = 'WEB - create';
@@ -121,8 +120,7 @@ app.post('/update', function(request, response){
       var description = post.description;
       fs.rename(`data/${id}`, `data/${title}`, function(error){
         fs.writeFile(`data/${title}`, description, 'utf8', function(err){
-          response.writeHead(302, {Location: `/page/${title}`});
-          response.end();
+          response.redirect(`/page/${title}`);
         })
       });
   });
@@ -138,8 +136,7 @@ app.post('/delete', function(request, response){
           var id = post.id;
           var filteredId = path.parse(id).base;
           fs.unlink(`data/${filteredId}`, function(error){
-            response.writeHead(302, {Location: `/`});
-            response.end();
+            response.redirect('/');
           })
       });
 });
