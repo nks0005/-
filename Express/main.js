@@ -5,10 +5,12 @@ const template = require('./lib/template.js');
 const path = require('path');
 const sanitizeHtml = require('sanitize-html');
 const qs = require('querystring');
+const bodyparser = require('body-parser');
 
+app.use(bodyparser.urlencoded({ extended: false }));
 
 app.get('/', function (request, response) {
-  fs.readdir('./data', function(error, filelist){
+  fs.readdir('./data', function (error, filelist) {
     var title = 'Welcome';
     var description = 'Hello, Node.js';
     var list = template.list(filelist);
@@ -20,16 +22,16 @@ app.get('/', function (request, response) {
   });
 });
 
-app.get('/page/:pageId', function(request, response){
+app.get('/page/:pageId', function (request, response) {
   console.log('page hello');
 
-  fs.readdir('./data', function(error, filelist){
+  fs.readdir('./data', function (error, filelist) {
     var filteredId = path.parse(request.params.pageId).base;
-    fs.readFile(`data/${filteredId}`, 'utf8', function(err, description){
+    fs.readFile(`data/${filteredId}`, 'utf8', function (err, description) {
       var title = filteredId;
       var sanitizedTitle = sanitizeHtml(title);
       var sanitizedDescription = sanitizeHtml(description, {
-        allowedTags:['h1']
+        allowedTags: ['h1']
       });
       var list = template.list(filelist);
       var html = template.HTML(sanitizedTitle, list,
@@ -47,8 +49,8 @@ app.get('/page/:pageId', function(request, response){
   });
 })
 
-app.get('/create', function(request, response){
-  fs.readdir('./data', function(error, filelist){
+app.get('/create', function (request, response) {
+  fs.readdir('./data', function (error, filelist) {
     var title = 'WEB - create';
     var list = template.list(filelist);
     var html = template.HTML(title, list, `
@@ -66,26 +68,29 @@ app.get('/create', function(request, response){
   });
 });
 
-app.post('/create', function(request, response){
-  var body = '';
-      request.on('data', function(data){
-          body = body + data;
-      });
-      request.on('end', function(){
-          var post = qs.parse(body);
-          var title = post.title;
-          var description = post.description;
-          fs.writeFile(`data/${title}`, description, 'utf8', function(err){
-            response.writeHead(302, {Location: `/page/${title}`});
-            response.end();
-          })
-      });
+app.post('/create', function (request, response) {
+  // console.log(request.body);
+  // var body = '';
+  //     request.on('data', function(data){
+  //         body = body + data;
+  //     });
+  //     request.on('end', function(){
+
+
+  //         })
+  //     });
+  var post = request.body;
+  var title = post.title;
+  var description = post.description;
+  fs.writeFile(`data/${title}`, description, 'utf8', function (err) {
+    response.redirect(`/page/${title}`);
+  });
 });
 
-app.get('/update/:pageId', function(request, response){
-  fs.readdir('./data', function(error, filelist){
+app.get('/update/:pageId', function (request, response) {
+  fs.readdir('./data', function (error, filelist) {
     var filteredId = path.parse(request.params.pageId).base;
-    fs.readFile(`data/${filteredId}`, 'utf8', function(err, description){
+    fs.readFile(`data/${filteredId}`, 'utf8', function (err, description) {
       var title = filteredId;
       var list = template.list(filelist);
       var html = template.HTML(title, list,
@@ -108,37 +113,30 @@ app.get('/update/:pageId', function(request, response){
   });
 });
 
-app.post('/update', function(request, response){
-  var body = '';
-  request.on('data', function(data){
-      body = body + data;
-  });
-  request.on('end', function(){
-      var post = qs.parse(body);
-      var id = post.id;
-      var title = post.title;
-      var description = post.description;
-      fs.rename(`data/${id}`, `data/${title}`, function(error){
-        fs.writeFile(`data/${title}`, description, 'utf8', function(err){
-          response.redirect(`/page/${title}`);
-        })
-      });
+app.post('/update', function (request, response) {
+  // var body = '';
+  // request.on('data', function (data) {
+  //   body = body + data;
+  // });
+  // request.on('end', function () {
+  var post = request.body;;
+  var id = post.id;
+  var title = post.title;
+  var description = post.description;
+  fs.rename(`data/${id}`, `data/${title}`, function (error) {
+    fs.writeFile(`data/${title}`, description, 'utf8', function (err) {
+      response.redirect(`/page/${title}`);
+    });
   });
 });
 
-app.post('/delete', function(request, response){
-  var body = '';
-      request.on('data', function(data){
-          body = body + data;
-      });
-      request.on('end', function(){
-          var post = qs.parse(body);
-          var id = post.id;
-          var filteredId = path.parse(id).base;
-          fs.unlink(`data/${filteredId}`, function(error){
-            response.redirect('/');
-          })
-      });
+app.post('/delete', function (request, response) {
+  var post = request.body;
+  var id = post.id;
+  var filteredId = path.parse(id).base;
+  fs.unlink(`data/${filteredId}`, function (error) {
+    response.redirect('/');
+  })
 });
 
 app.listen(3000, function () {
@@ -163,18 +161,18 @@ var app = http.createServer(function(request,response){
     if(pathname === '/'){
       if(queryData.id === undefined){
       } else {
-       
+
       }
     } else if(pathname === '/create'){
-      
+
     } else if(pathname === '/create_process'){
-      
+
     } else if(pathname === '/update'){
-      
+
     } else if(pathname === '/update_process'){
-      
+
     } else if(pathname === '/delete_process'){
-      
+
 });
 app.listen(3000);
 
