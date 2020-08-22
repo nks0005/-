@@ -8,8 +8,19 @@ const qs = require('querystring');
 const bodyparser = require('body-parser');
 const compression = require('compression');
 
+
+v
+
+
 app.use(bodyparser.urlencoded({ extended: false }));
 app.use(compression());
+
+
+
+
+
+
+
 
 app.get('/', function (request, response) {
   fs.readdir('./data', function (error, filelist) {
