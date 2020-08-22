@@ -71,16 +71,6 @@ app.get('/create', function (request, response) {
 });
 
 app.post('/create', function (request, response) {
-  // console.log(request.body);
-  // var body = '';
-  //     request.on('data', function(data){
-  //         body = body + data;
-  //     });
-  //     request.on('end', function(){
-
-
-  //         })
-  //     });
   var post = request.body;
   var title = post.title;
   var description = post.description;
@@ -116,12 +106,7 @@ app.get('/update/:pageId', function (request, response) {
 });
 
 app.post('/update', function (request, response) {
-  // var body = '';
-  // request.on('data', function (data) {
-  //   body = body + data;
-  // });
-  // request.on('end', function () {
-  var post = request.body;;
+  var post = request.body;
   var id = post.id;
   var title = post.title;
   var description = post.description;
